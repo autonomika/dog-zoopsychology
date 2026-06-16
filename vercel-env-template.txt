@@ -1,0 +1,23 @@
+# Скопируйте в Vercel → Settings → Environment Variables
+# DATABASE_URL — из Timeweb Cloud (вкладка «Подключение»)
+# SESSION_SECRET — openssl rand -base64 32
+
+DATABASE_URL=
+SESSION_SECRET=
+YOOKASSA_SHOP_ID=
+YOOKASSA_SECRET_KEY=
+NEXT_PUBLIC_APP_URL=https://YOUR-APP.vercel.app
+NEXT_PUBLIC_COURSE_PRICE=1990
+COURSE_PRICE=1990
+
+# Оферта и политика (/offer, /privacy) — для портфолио можно оставить demo-значения ниже
+LEGAL_SELLER_NAME=Autonomika Studio · portfolio demo
+LEGAL_SELLER_EMAIL=hello@autonomika.dev
+NEXT_PUBLIC_PORTFOLIO_AUTHOR=Autonomika
+# NEXT_PUBLIC_GITHUB_URL=https://github.com/you/dog-zoopsychology
+# LEGAL_SELLER_INN=
+# LEGAL_SELLER_OGRNIP=
+# LEGAL_SELLER_ADDRESS=
+
+# После подключения онлайн-кассы в ЮKassa:
+# YOOKASSA_SEND_RECEIPT=true

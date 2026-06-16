@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none">
+  <rect width="512" height="512" fill="#818f6b"/>
+  <g fill="none" stroke="#fefefe" stroke-width="20" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Ear -->
+    <path d="M168 168c-8-48 24-78 56-72 18 4 28 22 24 44"/>
+    <!-- Head & muzzle -->
+    <path d="M148 248c6-72 52-118 118-118 66 0 112 46 118 118 4 28-8 52-32 68-18 12-28 30-28 52"/>
+    <!-- Snout line -->
+    <path d="M318 248c34 8 58 32 62 62"/>
+    <!-- Eye -->
+    <path d="M286 228c12-8 28-10 42-4"/>
+    <circle cx="298" cy="226" r="7" fill="#fefefe" stroke="none"/>
+    <!-- Neck/chest -->
+    <path d="M176 368c-8-36 8-68 36-88"/>
+    <path d="M336 368c8-36-8-68-36-88"/>
+  </g>
+</svg>

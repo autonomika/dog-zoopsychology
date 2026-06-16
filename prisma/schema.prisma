@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String         @id @default(cuid())
+  email          String         @unique
+  name           String
+  password       String
+  paid           Boolean        @default(false)
+  dogName        String?
+  dogBreed       String?
+  dogAge         String?
+  behaviorType   String?
+  behaviorScores String?
+  createdAt      DateTime       @default(now())
+  progress       TestProgress[]
+  payments       Payment[]
+}
+
+model TestProgress {
+  id          String   @id @default(cuid())
+  userId      String
+  moduleId    String
+  score       Int
+  maxScore    Int
+  answers     String
+  completedAt DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, moduleId])
+}
+
+model Payment {
+  id               String   @id @default(cuid())
+  userId           String
+  yookassaId       String   @unique
+  amount           String
+  status           String   @default("pending")
+  createdAt        DateTime @default(now())
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, status])
+}
