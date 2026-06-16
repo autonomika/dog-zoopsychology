@@ -3,8 +3,7 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { HeaderGate } from "@/components/HeaderGate";
 import { PwaInstallBanner } from "@/components/PwaInstallBanner";
-import { FooterGate } from "@/components/FooterGate";
-import { SiteFooter } from "@/components/SiteFooter";
+import { ConditionalSiteFooter } from "@/components/ConditionalSiteFooter";
 import { SITE_NAME, SITE_TAGLINE, siteUrl } from "@/lib/site";
 import { Bitter, Libre_Baskerville, Oswald } from "next/font/google";
 import { cn } from "@/lib/utils";
@@ -90,9 +89,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Header />
         </HeaderGate>
         {children}
-        <FooterGate>
-          <SiteFooter />
-        </FooterGate>
+        <ConditionalSiteFooter />
         <PwaInstallBanner />
       </body>
     </html>
