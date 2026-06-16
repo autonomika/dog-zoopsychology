@@ -62,7 +62,8 @@ export default function PrivacyPage() {
             механизмы)
           </li>
           <li>
-            <strong>Timeweb Cloud</strong> — база данных PostgreSQL
+            <strong>Облачный провайдер PostgreSQL</strong> — хранение данных пользователей и
+            прогресса (managed database, EU/US)
           </li>
           <li>
             <strong>ООО «ЮMoney» (ЮKassa)</strong> — приём платежей

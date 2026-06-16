@@ -8,13 +8,15 @@ import { startCheckout } from "@/lib/startCheckout";
 export function PurchaseButton() {
   const [loading, setLoading] = useState(false);
   const [accepted, setAccepted] = useState(false);
+  const [error, setError] = useState("");
   const price = process.env.NEXT_PUBLIC_COURSE_PRICE || "1990";
 
   async function buy() {
     if (!accepted) return;
     setLoading(true);
+    setError("");
     const result = await startCheckout();
-    if (!result.ok) alert(result.error);
+    if (!result.ok) setError(result.error);
     setLoading(false);
   }
 
@@ -38,6 +40,7 @@ export function PurchaseButton() {
           </Link>
         </span>
       </label>
+      {error && <p className="text-sm text-destructive">{error}</p>}
       <Button onClick={buy} disabled={loading || !accepted} className="w-full">
         {loading ? "..." : `Оплатить ${price} ₽ через ЮKassa`}
       </Button>

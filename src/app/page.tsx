@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { LandingPopup } from "@/components/LandingPopup";
 import { LandingStickyCta } from "@/components/LandingStickyCta";
+import { PORTFOLIO_AUTHOR, PORTFOLIO_YEAR } from "@/lib/site";
 import { MODULES } from "@/lib/tests";
 
 const price = process.env.NEXT_PUBLIC_COURSE_PRICE || "1990";
+const github = process.env.NEXT_PUBLIC_GITHUB_URL?.trim();
 
 const HERO_BG =
   "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1920&q=80";
@@ -116,19 +118,19 @@ const promises = [
 const testimonials = [
   {
     text: "Наконец поняла, почему на прогулке всё срывается. После теста и рекомендаций стало проще — хотя бы знаю, с чего начать.",
-    name: "Анна, Москва",
+    name: "Пример · владелец",
   },
   {
     text: "Думала, собака просто упрямая. Оказалось — другой тип поведения. Тест занял 5 минут, а пользы больше, чем от часов YouTube.",
-    name: "Дмитрий, Сочи",
+    name: "Пример · владелец",
   },
   {
     text: "Понравилось, что после каждого вопроса есть разбор. Не просто «правильно/неправильно», а объяснение почему.",
-    name: "Елена, Санкт-Петербург",
+    name: "Пример · владелец",
   },
   {
     text: "Собака шла от спокойствия к хаосу за секунды. Теперь понимаю, что за этим стоит — и знаю, куда двигаться.",
-    name: "Проверенный отзыв",
+    name: "Пример · владелец",
   },
 ];
 
@@ -321,26 +323,26 @@ export default function Home() {
         </div>
       </section>
 
-      {/* TESTIMONIALS */}
+      {/* TESTIMONIALS — demo examples, not real reviews */}
       <section className="bg-paper py-20">
         <div className="sk9-container">
-          <div className="sk9-eyebrow">Результаты</div>
+          <div className="sk9-eyebrow">Примеры сценариев</div>
           <h2 className="sk9-h2 sk9-h2-dark max-w-2xl">
             Что меняется, когда
             <br />
             <em>понимаешь</em> собаку
           </h2>
+          <p className="font-body mt-4 max-w-xl text-sm text-muted-foreground">
+            Иллюстративные истории для demo-проекта — не реальные отзывы клиентов.
+          </p>
 
           <div className="mt-11 grid gap-5 sm:grid-cols-2">
-            {testimonials.map((t) => (
-              <blockquote key={t.name} className="border-t-[3px] border-sage bg-[#fefefe] p-8">
-                <div className="mb-3.5 text-[13px] tracking-[3px] text-sage">
-                  ★★★★★
-                </div>
+            {testimonials.map((t, i) => (
+              <blockquote key={i} className="border-t-[3px] border-sage bg-[#fefefe] p-8">
                 <p className="font-sub mb-4 text-[15px] italic leading-relaxed text-charcoal">
                   &ldquo;{t.text}&rdquo;
                 </p>
-                <footer className="font-h text-[11px] font-bold uppercase tracking-[0.1em] text-deep-moss">
+                <footer className="font-h text-[11px] font-bold uppercase tracking-[0.1em] text-deep-moss/70">
                   {t.name}
                 </footer>
               </blockquote>
@@ -464,8 +466,22 @@ export default function Home() {
               <Link href="/privacy" className="font-body text-xs text-soft-sage/25 transition-colors hover:text-soft-sage/60">
                 Конфиденциальность
               </Link>
+              {github && (
+                <a
+                  href={github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-body text-xs text-soft-sage/25 transition-colors hover:text-soft-sage/60"
+                >
+                  GitHub
+                </a>
+              )}
             </div>
           </div>
+
+          <p className="font-h mt-6 text-center text-[10px] font-bold uppercase tracking-[0.14em] text-soft-sage/30">
+            Pet project · {PORTFOLIO_YEAR} · {PORTFOLIO_AUTHOR} · Next.js · PostgreSQL · ЮKassa · PWA
+          </p>
         </div>
       </footer>
 

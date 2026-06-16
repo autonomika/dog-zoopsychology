@@ -3,6 +3,7 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { HeaderGate } from "@/components/HeaderGate";
 import { PwaInstallBanner } from "@/components/PwaInstallBanner";
+import { FooterGate } from "@/components/FooterGate";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SITE_NAME, SITE_TAGLINE, siteUrl } from "@/lib/site";
 import { Bitter, Libre_Baskerville, Oswald } from "next/font/google";
@@ -78,7 +79,6 @@ export const viewport: Viewport = {
   themeColor: "#818f6b",
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
   viewportFit: "cover",
 };
 
@@ -90,7 +90,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Header />
         </HeaderGate>
         {children}
-        <SiteFooter />
+        <FooterGate>
+          <SiteFooter />
+        </FooterGate>
         <PwaInstallBanner />
       </body>
     </html>
