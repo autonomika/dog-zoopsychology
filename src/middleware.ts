@@ -15,11 +15,15 @@ function clientIp(request: NextRequest) {
 }
 
 export function middleware(request: NextRequest) {
-  const response = NextResponse.next();
-  response.headers.set("x-pathname", request.nextUrl.pathname);
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set("x-pathname", request.nextUrl.pathname);
 
   if (!AUTH_PATHS.has(request.nextUrl.pathname)) {
-    return response;
+    return NextResponse.next({
+      request: {
+        headers: requestHeaders,
+      },
+    });
   }
 
   const ip = clientIp(request);
@@ -36,7 +40,11 @@ export function middleware(request: NextRequest) {
     );
   }
 
-  return response;
+  return NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    },
+  });
 }
 
 export const config = {
