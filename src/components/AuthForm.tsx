@@ -18,11 +18,13 @@ export function AuthForm({ mode }: { mode: Mode }) {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [error, setError] = useState("");
+  const [notice, setNotice] = useState("");
   const [loading, setLoading] = useState(false);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
+    setNotice("");
     setLoading(true);
     const url = mode === "login" ? "/api/auth/login" : "/api/auth/register";
     const body = mode === "login" ? { email, password } : { email, password, name, ...utmForApi() };
@@ -39,6 +41,10 @@ export function AuthForm({ mode }: { mode: Mode }) {
     }
     if (mode === "register") {
       reachGoal(YM_GOALS.REGISTER, utmForApi() as Record<string, string>);
+      if (data.emailSent) {
+        setNotice(`Пароль отправлен на ${email}`);
+        await new Promise((r) => setTimeout(r, 1500));
+      }
     }
     router.push(mode === "register" ? "/assessment" : "/dashboard");
     router.refresh();
@@ -66,9 +72,20 @@ export function AuthForm({ mode }: { mode: Mode }) {
           <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="password">Пароль</Label>
+          <div className="flex items-center justify-between gap-2">
+            <Label htmlFor="password">Пароль</Label>
+            {mode === "login" && (
+              <Link
+                href="/forgot-password"
+                className="text-xs text-primary underline-offset-4 hover:underline"
+              >
+                Забыли пароль?
+              </Link>
+            )}
+          </div>
           <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} minLength={MIN_PASSWORD_LENGTH} required />
         </div>
+        {notice && <p className="text-sm text-sage">{notice}</p>}
         {error && <p className="text-sm text-destructive">{error}</p>}
         <Button type="submit" className="sk9-btn-primary w-full justify-center" disabled={loading}>
           {loading ? "..." : mode === "login" ? "Войти" : "Создать аккаунт"}

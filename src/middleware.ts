@@ -4,7 +4,12 @@ import { rateLimit } from "@/lib/rate-limit";
 
 const AUTH_LIMIT = 10;
 const AUTH_WINDOW_MS = 60_000;
-const AUTH_PATHS = new Set(["/api/auth/login", "/api/auth/register"]);
+const AUTH_PATHS = new Set([
+  "/api/auth/login",
+  "/api/auth/register",
+  "/api/auth/forgot-password",
+  "/api/auth/reset-password",
+]);
 
 function clientIp(request: NextRequest) {
   return (

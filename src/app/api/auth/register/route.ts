@@ -7,6 +7,7 @@ import {
 } from "@/lib/auth-validation";
 import { prisma } from "@/lib/db";
 import { createSession } from "@/lib/session";
+import { sendRegistrationCredentials } from "@/lib/mail";
 
 function pickUtm(body: Record<string, unknown>) {
   const str = (key: string) => {
@@ -44,5 +45,12 @@ export async function POST(req: Request) {
   });
 
   await createSession({ id: user.id, email: user.email, name: user.name });
-  return NextResponse.json({ ok: true });
+
+  const mailResult = await sendRegistrationCredentials({
+    to: normalizedEmail,
+    name: trimmedName,
+    password,
+  });
+
+  return NextResponse.json({ ok: true, emailSent: mailResult.ok });
 }

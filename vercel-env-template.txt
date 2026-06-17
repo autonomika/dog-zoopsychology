@@ -24,3 +24,7 @@ NEXT_PUBLIC_PORTFOLIO_AUTHOR=Autonomika
 
 # После подключения онлайн-кассы в ЮKassa:
 # YOOKASSA_SEND_RECEIPT=true
+
+# Почта (Resend) — пароль при регистрации и сброс пароля
+RESEND_API_KEY=
+MAIL_FROM=Дрессировка <onboarding@resend.dev>
