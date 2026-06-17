@@ -124,7 +124,7 @@ export async function POST(req: Request) {
       chosenId: item.chosenId,
       isCorrect: item.isCorrect,
     })),
-    introCompleted: moduleId === "intro",
-    needsPayment: moduleId === "intro" && !user.paid,
+    introCompleted: moduleId === "body-language",
+    needsPayment: moduleId === "body-language" && !user.paid,
   });
 }

@@ -90,21 +90,21 @@ async function main() {
   assert(r.status === 200 && r.data.primaryType, `assessment submit → ${JSON.stringify(r.data)}`);
   ok(`behavior type: ${r.data.primaryType.title}`);
 
-  // Intro test
+  // Free module test (body-language)
   r = await req("POST", "/api/test/submit", {
-    moduleId: "intro",
+    moduleId: "body-language",
     answers: { q1: "b", q2: "b", q3: "b", q4: "b", q5: "b" },
   });
-  assert(r.status === 200 && r.data.score === 5, `intro score → ${r.data?.score}`);
-  ok("intro test 5/5");
+  assert(r.status === 200 && r.data.score === 5, `body-language score → ${r.data?.score}`);
+  ok("body-language test 5/5");
 
   // Locked module
   r = await req("POST", "/api/test/submit", {
-    moduleId: "stress",
+    moduleId: "stress-thresholds",
     answers: { q1: "b", q2: "b", q3: "b", q4: "b", q5: "b" },
   });
-  assert(r.status === 403, `stress locked → ${r.status}`);
-  ok("stress blocked without payment");
+  assert(r.status === 403, `stress-thresholds locked → ${r.status}`);
+  ok("stress-thresholds blocked without payment");
 
   // Demo unlock
   r = await req("POST", "/api/demo-unlock");
@@ -113,11 +113,11 @@ async function main() {
 
   // After unlock — spot-check first paid module
   r = await req("POST", "/api/test/submit", {
-    moduleId: "stress",
+    moduleId: "stress-thresholds",
     answers: { q1: "b", q2: "b", q3: "b", q4: "b", q5: "b" },
   });
-  assert(r.status === 200, `stress after unlock → ${r.status}`);
-  ok(`stress test ${r.data.score}/${r.data.maxScore}`);
+  assert(r.status === 200, `stress-thresholds after unlock → ${r.status}`);
+  ok(`stress-thresholds test ${r.data.score}/${r.data.maxScore}`);
 
   // Logout
   r = await req("POST", "/api/auth/logout");
