@@ -175,7 +175,11 @@ npm run dev
 npm run test:e2e
 ```
 
-## Структура
+## Аналитика и маркетинг
+
+- `NEXT_PUBLIC_YM_COUNTER_ID` — Яндекс.Метрика (см. `marketing/utm-links.md`)
+- UTM сохраняется при переходе и записывается при регистрации
+- Email-цепочка: `marketing/email-sequence/`
 
 ```
 src/app/              — страницы и API

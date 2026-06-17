@@ -2,9 +2,9 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Зоопсихология собаки",
-    short_name: "Зоопсихология",
-    description: "Курс с теорией и тестами по поведению собаки",
+    name: "Дрессировка и поведение собак",
+    short_name: "Дрессировка",
+    description: "Онлайн-платформа по дрессировке и поведению собак: теория, тесты, повторение",
     start_url: "/dashboard",
     scope: "/",
     display: "standalone",

@@ -11,9 +11,9 @@ const HERO_BG =
   "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1920&q=80";
 
 const heroPromises = [
-  "Поймите, почему собака тянет, реагирует или отключается",
-  "Узнайте тип поведения с полным разбором",
-  "Получите рекомендации — что делать в первую очередь",
+  "Освойте базовую дрессировку без давления и срывов",
+  "Поймите тип поведения собаки и причины реакций",
+  "Получите понятный план: что делать в первую очередь",
 ];
 
 const stats = [
@@ -77,6 +77,27 @@ const behaviorTypes = [
   },
 ];
 
+const tracks = [
+  {
+    title: "Трек обучения 01 · Дрессировка",
+    lead: "Базовое послушание и бытовые навыки",
+    points: [
+      "Команды в реальной жизни: дома и на улице",
+      "Поводок, самоконтроль, спокойный быт",
+      "Практичные сценарии: гости, прогулки, шум",
+    ],
+  },
+  {
+    title: "Трек обучения 02 · Поведение и психология",
+    lead: "Коррекция реакций и работа с эмоциями",
+    points: [
+      "Страх, реактивность, сигналы стресса",
+      "Порог, дистанция, безопасная адаптация",
+      "Интервальный тренажер ошибок 1/3/7 дней",
+    ],
+  },
+];
+
 const steps = [
   {
     num: "01",
@@ -96,7 +117,7 @@ const steps = [
   {
     num: "04",
     title: "Откройте полный курс",
-    desc: `15 модулей: теория для самостоятельного изучения + тест. Первый бесплатно. Полный доступ — ${price} ₽.`,
+    desc: `${MODULES.length} модулей по дрессировке и поведению: теория + тест + повторение. Первый бесплатно. Полный доступ — ${price} ₽.`,
   },
 ];
 
@@ -224,7 +245,8 @@ export default function Home() {
             <em>похож</em> на вашу собаку?
           </h2>
           <p className="font-body mt-4 max-w-xl text-base text-[#5a5a52]">
-            У большинства собак есть доминирующий паттерн. Тест помогает его определить.
+            У большинства собак есть доминирующий паттерн. Понимание типа ускоряет и дрессировку,
+            и коррекцию поведения.
           </p>
 
           <div className="mt-11 grid gap-[3px] bg-stone sm:grid-cols-2">
@@ -259,6 +281,43 @@ export default function Home() {
             <Link href="/register" className="sk9-btn-primary sk9-btn-lg">
               Узнать тип моей собаки
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* TRACKS */}
+      <section className="bg-[#f7f8f4] py-20">
+        <div className="sk9-container">
+          <div className="sk9-eyebrow">Два трека обучения</div>
+          <h2 className="sk9-h2 sk9-h2-dark max-w-3xl">
+            Дрессировка +
+            <br />
+            <em>поведение</em> в одной системе
+          </h2>
+          <p className="font-body mt-4 max-w-2xl text-sm text-[#5a5a52]">
+            Вы можете зайти через бытовую дрессировку и постепенно перейти к глубокой работе с
+            поведением. Оба направления связаны единым планом обучения.
+          </p>
+
+          <div className="mt-10 grid gap-4 sm:grid-cols-2">
+            {tracks.map((track) => (
+              <div key={track.title} className="rounded-xl border border-stone/70 bg-[#fefefe] p-7">
+                <p className="font-h text-[11px] font-bold uppercase tracking-[0.14em] text-sage">
+                  {track.title}
+                </p>
+                <h3 className="font-h mt-2 text-xl font-extrabold uppercase text-charcoal">
+                  {track.lead}
+                </h3>
+                <ul className="mt-4 space-y-2">
+                  {track.points.map((point) => (
+                    <li key={point} className="flex gap-2 text-sm text-[#5a5a52]">
+                      <span className="mt-1.5 size-1 rounded-full bg-sage" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -388,10 +447,10 @@ export default function Home() {
             <div className="sm:col-span-2 lg:col-span-1">
               <div className="mb-3.5 flex items-center gap-2.5">
                 <span className="flex size-9 items-center justify-center rounded-full bg-sage p-1">
-                  <span className="font-h text-xs font-extrabold text-[#fefefe]">ЗП</span>
+                  <span className="font-h text-xs font-extrabold text-[#fefefe]">ДП</span>
                 </span>
                 <span className="font-h text-base font-extrabold uppercase tracking-wide text-[#fefefe]">
-                  Зоопсихология
+                  Дрессировка и поведение
                 </span>
               </div>
               <p className="font-body max-w-[260px] text-[13px] leading-relaxed text-soft-sage/45">
@@ -457,7 +516,7 @@ export default function Home() {
 
           <div className="flex flex-col items-center justify-between gap-3 border-t border-white/[0.07] pt-5 sm:flex-row">
             <p className="font-body text-xs text-soft-sage/25">
-              © {new Date().getFullYear()} Зоопсихология. Все права защищены.
+              © {new Date().getFullYear()} Дрессировка и поведение собак. Все права защищены.
             </p>
             <div className="flex gap-4">
               <Link href="/offer" className="font-body text-xs text-soft-sage/25 transition-colors hover:text-soft-sage/60">

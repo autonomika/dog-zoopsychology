@@ -21,7 +21,7 @@ export async function POST() {
       userId: session.id,
       email: session.email,
       returnUrl,
-      description: "Полный курс «Зоопсихология собаки»",
+      description: "Полный курс «Дрессировка и поведение собак»",
     });
 
     await prisma.payment.create({

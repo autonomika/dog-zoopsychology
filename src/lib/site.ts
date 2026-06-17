@@ -4,9 +4,9 @@ export function siteUrl() {
   return process.env.NEXT_PUBLIC_APP_URL?.trim().replace(/\/$/, "") || DEFAULT_SITE_URL;
 }
 
-export const SITE_NAME = "Зоопсихология собаки";
+export const SITE_NAME = "Дрессировка и поведение собак";
 export const SITE_TAGLINE =
-  "EdTech-платформа: тест поведения собаки, курс с модулями и оплата через ЮKassa";
+  "EdTech-платформа: дрессировка и поведение собак — тест, обучение по модулям и оплата через ЮKassa";
 
 export const PORTFOLIO_AUTHOR =
   process.env.NEXT_PUBLIC_PORTFOLIO_AUTHOR?.trim() || "Autonomika";

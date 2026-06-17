@@ -10,6 +10,9 @@ NEXT_PUBLIC_APP_URL=https://YOUR-APP.vercel.app
 NEXT_PUBLIC_COURSE_PRICE=1990
 COURSE_PRICE=1990
 
+# Яндекс.Метрика — номер счётчика с metrika.yandex.ru
+NEXT_PUBLIC_YM_COUNTER_ID=
+
 # Оферта и политика (/offer, /privacy) — для портфолио можно оставить demo-значения ниже
 LEGAL_SELLER_NAME=Autonomika Studio · portfolio demo
 LEGAL_SELLER_EMAIL=hello@autonomika.dev

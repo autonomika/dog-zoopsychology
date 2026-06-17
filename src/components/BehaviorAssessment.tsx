@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { reachGoal, YM_GOALS } from "@/lib/analytics";
 import { BEHAVIOR_QUESTIONS, type BehaviorType } from "@/lib/behavior-quiz";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -50,6 +51,9 @@ export function BehaviorAssessment({ initialProfile, isRetake }: Props) {
     }
     setResult(data);
     setPhase("result");
+    reachGoal(YM_GOALS.ASSESSMENT, {
+      behavior_type: data.primaryType?.id ?? "unknown",
+    });
     router.refresh();
   }
 
@@ -78,7 +82,7 @@ export function BehaviorAssessment({ initialProfile, isRetake }: Props) {
             if (!dogName.trim()) return;
             setPhase("quiz");
           }}
-          className="mt-8 space-y-4"
+          className="sk9-focus-shell mt-8 space-y-4"
         >
           <div className="space-y-2">
             <Label htmlFor="dogName">Имя собаки *</Label>
@@ -170,27 +174,31 @@ export function BehaviorAssessment({ initialProfile, isRetake }: Props) {
   return (
     <div className="mx-auto max-w-md px-4 pt-[calc(76px+2.5rem)] pb-16">
       <div className="sk9-eyebrow">Шаг 2 — {dogName}</div>
-      <div className="mb-6 h-1 bg-stone">
-        <div className="h-full bg-sage transition-all" style={{ width: `${progress}%` }} />
-      </div>
-      <p className="font-h text-xs font-bold uppercase tracking-wider text-muted-foreground">
-        {step + 1} / {BEHAVIOR_QUESTIONS.length}
-      </p>
-      <h2 className="mt-3 mb-6 font-body text-lg leading-snug font-medium">{q.text}</h2>
+      <div className="sk9-focus-shell">
+        <div className="sk9-focus-progress mb-6">
+          <div className="h-full bg-sage transition-all" style={{ width: `${progress}%` }} />
+        </div>
+        <div className="sk9-focus-card">
+          <p className="font-h text-xs font-bold uppercase tracking-wider text-muted-foreground">
+            {step + 1} / {BEHAVIOR_QUESTIONS.length}
+          </p>
+          <h2 className="mt-3 mb-6 font-body text-lg leading-snug font-medium">{q.text}</h2>
 
-      {error && <p className="mb-4 text-sm text-destructive">{error}</p>}
+          {error && <p className="mb-4 text-sm text-destructive">{error}</p>}
 
-      <div className="space-y-2">
-        {q.options.map((opt) => (
-          <button
-            key={opt.id}
-            type="button"
-            onClick={() => choose(opt.id)}
-            className="w-full rounded-[var(--radius-button)] border border-stone bg-[#fefefe] px-4 py-3.5 text-left font-body text-sm transition-colors hover:border-sage hover:bg-paper"
-          >
-            {opt.text}
-          </button>
-        ))}
+          <div className="space-y-2">
+            {q.options.map((opt) => (
+              <button
+                key={opt.id}
+                type="button"
+                onClick={() => choose(opt.id)}
+                className="sk9-focus-option"
+              >
+                {opt.text}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

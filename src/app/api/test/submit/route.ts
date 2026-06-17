@@ -1,7 +1,15 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { getSession } from "@/lib/session";
-import { getModule, getResult, scoreModule, isModuleUnlocked } from "@/lib/tests";
+import {
+  getModule,
+  getPassedModuleIds,
+  getPassingScore,
+  getResult,
+  isModulePassed,
+  isModuleUnlocked,
+  scoreModule,
+} from "@/lib/tests";
 
 export async function POST(req: Request) {
   const session = await getSession();
@@ -23,37 +31,98 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Пользователь не найден" }, { status: 404 });
   }
 
-  const completedIds = user.progress.map((p) => p.moduleId);
-  if (!isModuleUnlocked(module, user.paid, completedIds)) {
+  const passedIds = getPassedModuleIds(user.progress);
+  if (!isModuleUnlocked(module, user.paid, passedIds)) {
     return NextResponse.json({ error: "Модуль заблокирован" }, { status: 403 });
   }
 
   const { score, maxScore } = scoreModule(module, answers);
   const result = getResult(module, score);
+  const passScore = getPassingScore(module);
+  const passed = isModulePassed(module, score, maxScore);
 
-  await prisma.testProgress.upsert({
-    where: { userId_moduleId: { userId: user.id, moduleId } },
-    create: {
-      userId: user.id,
-      moduleId,
-      score,
-      maxScore,
-      answers: JSON.stringify(answers),
-    },
-    update: { score, maxScore, answers: JSON.stringify(answers), completedAt: new Date() },
+  const attempts = module.questions.map((q) => {
+    const correctId = q.options.find((o) => o.correct)?.id ?? "";
+    const chosenId = answers[q.id] ?? "";
+    const isCorrect = chosenId === correctId;
+    const reviewAt = !isCorrect
+      ? new Date(Date.now() + 24 * 60 * 60 * 1000) // 1 day
+      : null;
+    return { q, correctId, chosenId, isCorrect, reviewAt };
   });
+
+  await prisma.$transaction([
+    prisma.testProgress.upsert({
+      where: { userId_moduleId: { userId: user.id, moduleId } },
+      create: {
+        userId: user.id,
+        moduleId,
+        score,
+        maxScore,
+        passed,
+        answers: JSON.stringify(answers),
+      },
+      update: {
+        score,
+        maxScore,
+        passed,
+        answers: JSON.stringify(answers),
+        completedAt: new Date(),
+      },
+    }),
+    ...attempts.flatMap((item) =>
+      item.isCorrect
+        ? [
+            prisma.questionAttempt.updateMany({
+              where: {
+                userId: user.id,
+                moduleId,
+                questionId: item.q.id,
+                reviewed: false,
+              },
+              data: { reviewed: true },
+            }),
+          ]
+        : [
+            prisma.questionAttempt.updateMany({
+              where: {
+                userId: user.id,
+                moduleId,
+                questionId: item.q.id,
+                reviewed: false,
+              },
+              data: { reviewed: true },
+            }),
+            prisma.questionAttempt.create({
+              data: {
+                userId: user.id,
+                moduleId,
+                questionId: item.q.id,
+                chosenId: item.chosenId,
+                correctId: item.correctId,
+                isCorrect: false,
+                reviewStage: 0,
+                nextReviewAt: item.reviewAt,
+              },
+            }),
+          ]
+    ),
+  ]);
 
   return NextResponse.json({
     score,
     maxScore,
     percent: Math.round((score / maxScore) * 100),
+    passScore,
+    passed,
     result,
-    explanations: module.questions.map((q) => ({
-      id: q.id,
-      text: q.text,
-      explanation: q.explanation,
-      correctId: q.options.find((o) => o.correct)?.id,
-      chosenId: answers[q.id],
+    explanations: attempts.map((item) => ({
+      id: item.q.id,
+      text: item.q.text,
+      explanation: item.q.explanation,
+      correctId: item.correctId,
+      chosenId: item.chosenId,
+      isCorrect: item.isCorrect,
     })),
     introCompleted: moduleId === "intro",
     needsPayment: moduleId === "intro" && !user.paid,

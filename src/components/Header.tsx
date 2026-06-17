@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getSession } from "@/lib/session";
+import { SITE_NAME } from "@/lib/site";
 import { PawPrint } from "lucide-react";
 
 export async function Header() {
@@ -12,8 +13,8 @@ export async function Header() {
           <span className="flex size-[50px] items-center justify-center rounded-full bg-sage/20">
             <PawPrint className="size-6 text-sage" />
           </span>
-          <span className="font-h text-lg font-extrabold uppercase tracking-wider text-[#fefefe]">
-            Зоопсихология
+          <span className="font-h text-sm font-extrabold uppercase tracking-wider text-[#fefefe] sm:text-base">
+            {SITE_NAME}
           </span>
         </Link>
 

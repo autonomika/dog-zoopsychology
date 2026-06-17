@@ -228,4 +228,99 @@
   .safe-bottom {
     padding-bottom: max(1rem, env(safe-area-inset-bottom));
   }
+
+  /* Calm, high-contrast palette for focused test-taking screens. */
+  .sk9-focus-shell {
+    @apply rounded-2xl border border-sage/25 p-4 shadow-[0_10px_30px_rgba(45,48,42,0.06)] sm:p-6;
+    background:
+      radial-gradient(120% 100% at 0% 0%, rgba(129, 143, 107, 0.15) 0%, rgba(129, 143, 107, 0) 58%),
+      radial-gradient(90% 80% at 100% 100%, rgba(169, 178, 154, 0.16) 0%, rgba(169, 178, 154, 0) 62%),
+      linear-gradient(180deg, #f3f5ef 0%, #ecefe6 100%);
+  }
+
+  .sk9-focus-card {
+    @apply rounded-xl bg-[#f7f9f2] p-4 sm:p-5;
+  }
+
+  .sk9-focus-progress {
+    @apply h-1.5 overflow-hidden rounded-full bg-sand/80;
+  }
+
+  .sk9-focus-option {
+    @apply w-full rounded-[var(--radius-button)] border border-stone bg-[#f4f7ef] px-4 py-3.5 text-left font-body text-sm transition-colors;
+    @apply hover:border-sage hover:bg-[#eef3e8] focus-visible:border-sage focus-visible:ring-2 focus-visible:ring-sage/30;
+    min-height: 48px;
+  }
+
+  .sk9-focus-option-neutral {
+    @apply border-stone bg-[#f4f7ef] text-charcoal;
+  }
+
+  .sk9-focus-option-selected {
+    @apply border-sage/70 bg-sage/8 text-charcoal;
+  }
+
+  .sk9-focus-option-correct {
+    @apply border-[#7ea989] bg-[#eef7ef] text-[#284f31];
+  }
+
+  .sk9-focus-option-wrong {
+    @apply border-[#d39b92] bg-[#fcf2f1] text-[#7b3a34];
+  }
+
+  /* Mobile-first sticky CTA for tests */
+  .sk9-sticky-cta {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    @apply border-t border-border/70 bg-white/95 px-4 py-3 backdrop-blur;
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+  }
+
+  @media (min-width: 640px) {
+    .sk9-sticky-cta {
+      position: static;
+      @apply border-0 bg-transparent px-0 py-0 backdrop-blur-none;
+    }
+  }
+
+  .sk9-feedback-card {
+    @apply rounded-xl border p-4;
+  }
+
+  .sk9-feedback-calm {
+    @apply border-sage/20 bg-[linear-gradient(180deg,#f6f8f3_0%,#f3f6f1_100%)] text-charcoal;
+  }
+
+  .sk9-feedback-good {
+    @apply border-[#7ea989] bg-[#eef7ef] text-[#284f31];
+  }
+
+  .sk9-feedback-growth {
+    @apply border-[#c8b7a2] bg-[#fbf7f2] text-[#5a5045];
+  }
+
+  .sk9-learning-stage {
+    @apply rounded-2xl border border-sage/20 p-4 sm:p-6;
+    background:
+      radial-gradient(120% 80% at 10% 0%, rgba(129, 143, 107, 0.12) 0%, rgba(129, 143, 107, 0) 55%),
+      radial-gradient(100% 70% at 90% 100%, rgba(169, 178, 154, 0.18) 0%, rgba(169, 178, 154, 0) 60%),
+      linear-gradient(180deg, #fafbf8 0%, #f4f5f0 100%);
+  }
+
+  .sk9-test-surface {
+    @apply rounded-xl border border-sage/25 p-3 sm:p-4;
+    background:
+      radial-gradient(90% 80% at 12% 0%, rgba(129, 143, 107, 0.12) 0%, rgba(129, 143, 107, 0) 65%),
+      linear-gradient(180deg, rgba(239, 243, 234, 0.98) 0%, rgba(232, 238, 225, 0.98) 100%);
+  }
+
+  .sk9-learning-page {
+    background:
+      radial-gradient(110% 70% at 5% 0%, rgba(129, 143, 107, 0.12) 0%, rgba(129, 143, 107, 0) 60%),
+      radial-gradient(95% 60% at 95% 100%, rgba(169, 178, 154, 0.16) 0%, rgba(169, 178, 154, 0) 65%),
+      linear-gradient(180deg, #f1f4ea 0%, #e8ede1 100%);
+  }
 }

@@ -4,6 +4,8 @@ import { Header } from "@/components/Header";
 import { HeaderGate } from "@/components/HeaderGate";
 import { PwaInstallBanner } from "@/components/PwaInstallBanner";
 import { ConditionalSiteFooter } from "@/components/ConditionalSiteFooter";
+import { UtmCapture } from "@/components/UtmCapture";
+import { YandexMetrika } from "@/components/YandexMetrika";
 import { SITE_NAME, SITE_TAGLINE, siteUrl } from "@/lib/site";
 import { Bitter, Libre_Baskerville, Oswald } from "next/font/google";
 import { cn } from "@/lib/utils";
@@ -34,7 +36,7 @@ export const metadata: Metadata = {
     template: `%s · ${SITE_NAME}`,
   },
   description: SITE_TAGLINE,
-  applicationName: "Зоопсихология",
+  applicationName: SITE_NAME,
   openGraph: {
     type: "website",
     locale: "ru_RU",
@@ -60,7 +62,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Зоопсихология",
+    title: SITE_NAME,
   },
   icons: {
     icon: [
@@ -85,6 +87,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ru" className={cn(bitter.variable, oswald.variable, libre.variable)}>
       <body className="min-h-screen bg-background font-body text-foreground antialiased">
+        <UtmCapture />
+        <YandexMetrika />
         <HeaderGate>
           <Header />
         </HeaderGate>

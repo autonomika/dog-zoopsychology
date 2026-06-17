@@ -3,7 +3,7 @@ import { LegalPageLayout } from "@/components/LegalPageLayout";
 import { getLegalInfo, sellerDetails } from "@/lib/legal";
 
 export const metadata: Metadata = {
-  title: "Политика конфиденциальности — Зоопсихология собаки",
+  title: "Политика конфиденциальности — Дрессировка и поведение собак",
   description: "Политика обработки персональных данных пользователей сайта",
 };
 

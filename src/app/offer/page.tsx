@@ -3,7 +3,7 @@ import { LegalPageLayout } from "@/components/LegalPageLayout";
 import { getLegalInfo, sellerDetails } from "@/lib/legal";
 
 export const metadata: Metadata = {
-  title: "Публичная оферта — Зоопсихология собаки",
+  title: "Публичная оферта — Дрессировка и поведение собак",
   description: "Договор оферты на оказание услуг по предоставлению доступа к онлайн-курсу",
 };
 

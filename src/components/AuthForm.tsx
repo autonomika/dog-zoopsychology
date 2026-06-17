@@ -3,7 +3,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { reachGoal, YM_GOALS } from "@/lib/analytics";
 import { MIN_PASSWORD_LENGTH } from "@/lib/auth-validation";
+import { utmForApi } from "@/lib/utm";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -23,7 +25,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
     setError("");
     setLoading(true);
     const url = mode === "login" ? "/api/auth/login" : "/api/auth/register";
-    const body = mode === "login" ? { email, password } : { email, password, name };
+    const body = mode === "login" ? { email, password } : { email, password, name, ...utmForApi() };
     const res = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -34,6 +36,9 @@ export function AuthForm({ mode }: { mode: Mode }) {
     if (!res.ok) {
       setError(data.error || "Ошибка");
       return;
+    }
+    if (mode === "register") {
+      reachGoal(YM_GOALS.REGISTER, utmForApi() as Record<string, string>);
     }
     router.push(mode === "register" ? "/assessment" : "/dashboard");
     router.refresh();

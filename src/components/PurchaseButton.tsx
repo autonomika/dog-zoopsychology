@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { reachGoal, YM_GOALS } from "@/lib/analytics";
 import { Button } from "@/components/ui/button";
 import { startCheckout } from "@/lib/startCheckout";
 
@@ -15,6 +16,7 @@ export function PurchaseButton() {
     if (!accepted) return;
     setLoading(true);
     setError("");
+    reachGoal(YM_GOALS.CHECKOUT);
     const result = await startCheckout();
     if (!result.ok) setError(result.error);
     setLoading(false);

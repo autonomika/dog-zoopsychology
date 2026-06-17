@@ -18,8 +18,14 @@ model User {
   dogAge         String?
   behaviorType   String?
   behaviorScores String?
+  utmSource      String?
+  utmMedium      String?
+  utmCampaign    String?
+  utmContent     String?
+  utmTerm        String?
   createdAt      DateTime       @default(now())
   progress       TestProgress[]
+  attempts       QuestionAttempt[]
   payments       Payment[]
 }
 
@@ -29,11 +35,30 @@ model TestProgress {
   moduleId    String
   score       Int
   maxScore    Int
+  passed      Boolean  @default(false)
   answers     String
   completedAt DateTime @default(now())
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, moduleId])
+}
+
+model QuestionAttempt {
+  id           String   @id @default(cuid())
+  userId       String
+  moduleId     String
+  questionId   String
+  chosenId     String
+  correctId    String
+  isCorrect    Boolean
+  reviewStage  Int      @default(0)
+  reviewed     Boolean  @default(false)
+  nextReviewAt DateTime?
+  createdAt    DateTime @default(now())
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, moduleId])
+  @@index([userId, reviewed, nextReviewAt])
 }
 
 model Payment {

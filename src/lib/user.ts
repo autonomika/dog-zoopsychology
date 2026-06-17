@@ -9,6 +9,16 @@ export async function getCurrentUser() {
     include: {
       progress: { orderBy: { completedAt: "desc" } },
       payments: { orderBy: { createdAt: "desc" }, take: 5 },
+      _count: {
+        select: {
+          attempts: {
+            where: {
+              reviewed: false,
+              nextReviewAt: { lte: new Date() },
+            },
+          },
+        },
+      },
     },
   });
 }

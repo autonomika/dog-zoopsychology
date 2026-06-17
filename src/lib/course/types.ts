@@ -25,6 +25,8 @@ export type Module = {
   description: string;
   free: boolean;
   duration: string;
+  recommended?: boolean;
+  recommendedBooks?: { title: string; author?: string; note?: string }[];
   theory: TheorySection[];
   questions: Question[];
   results: ModuleResult[];

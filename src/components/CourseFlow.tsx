@@ -50,10 +50,12 @@ export function CourseFlow({ module }: { module: Module }) {
           </Button>
         </div>
       ) : (
-        <div>
-          <p className="mb-6 font-body text-sm text-muted-foreground">
-            {module.questions.length} вопросов · проверка понимания темы
-          </p>
+        <div className="sk9-test-surface">
+          <div className="mb-4 flex items-center gap-2 text-sm text-muted-foreground">
+            <ClipboardList className="size-3.5" />
+            {module.questions.length} вопросов · с мгновенной обратной связью и подсказкой теории
+          </div>
+
           <TestRunner module={module} />
           <Button variant="ghost" onClick={() => setPhase("theory")} className="mt-6 w-full">
             ← Вернуться к теории
